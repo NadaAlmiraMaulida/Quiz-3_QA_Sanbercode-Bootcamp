@@ -11,7 +11,7 @@ describe("OrangeHRM Login Feature - Intercept Implementation", () => {
     cy.get('input[name="password"]').type("admin123");
     cy.get('button[type="submit"]').click();
 
-    // Validasi: Menunggu request selesai dan pastikan status 200
+    // Validasi
     cy.wait("@actionSummary").its("response.statusCode").should("eq", 200);
     cy.url().should("include", "/dashboard");
   });
@@ -24,7 +24,7 @@ describe("OrangeHRM Login Feature - Intercept Implementation", () => {
     cy.get('input[name="password"]').type("salah123");
     cy.get('button[type="submit"]').click();
 
-    // Validasi: Intercept menangkap request auth yang gagal
+    // Validasi
     cy.wait("@loginAuth").its("response.statusCode").should("be.oneOf", [200, 302]);
     cy.get(".oxd-alert-content-text").should("contain", "Invalid credentials");
   });
